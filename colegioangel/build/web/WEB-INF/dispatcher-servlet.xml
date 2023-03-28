@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+      <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props><!--lista de los jsp que hacen referencia y que son unidos a HomeController del paquete
+Controller-->
+                <prop key="index.htm">indexController</prop>
+                <prop key="Home.htm">HomeController</prop>
+                <prop key="Convenios.htm">HomeController</prop>
+                <prop key="Metodologia.htm">HomeController</prop>
+                <prop key="Nosotros.htm">HomeController</prop>
+                <prop key="Cursos.htm">HomeController</prop>
+                <prop key="Alumnos.htm">HomeController</prop>
+                <prop key="Docente.htm">HomeController</prop>
+                <prop key="Sedes.htm">HomeController</prop>
+                <prop key="Servicios.htm">HomeController</prop>
+                <prop key="Videos.htm">HomeController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+
+    <!--
+    The index controller.
+    -->
+    <bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
+<bean name="HomeController" class="Controller.HomeController"></bean><!--aqui se hace el llamado al HomeController-->
+</beans>
